@@ -1,0 +1,60 @@
+@import './style/normalize.scss';
+
+$color: #000;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Aclonica', sans-serif;
+  color: $color;
+  display: block;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+a {
+  color: $color;
+}
+
+#root {
+  min-height: 100.1vh;
+  width: 100%;
+  background-color: #ffe0a7;
+}
+
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  .logo {
+    padding: 0 10px;
+  }
+  .menu {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    li {
+      //padding: 20px;
+    }
+    a {
+      padding: 20px;
+      text-decoration: none;
+      display: block;
+    }
+  }
+}
