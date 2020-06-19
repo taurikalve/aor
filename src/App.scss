@@ -1,37 +1,19 @@
-@import './style/normalize.scss';
-
 $color: #000;
+$background: #ffe0a7;
+$font-size: 1rem;
 
-* {
-  box-sizing: border-box;
-}
+@import './style/normalize.scss';
+@import './style/reset.scss';
+@import './style/mixins.scss';
 
 body {
   font-family: 'Aclonica', sans-serif;
-  color: $color;
-  display: block;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  margin: 0;
-}
-
-ul {
-  list-style-type: none;
-  margin: 0;
-}
-
-a {
-  color: $color;
 }
 
 #root {
   min-height: 100.1vh;
   width: 100%;
-  background-color: #ffe0a7;
+  background-color: $background;
 }
 
 .header {
@@ -41,20 +23,60 @@ a {
   flex-direction: row;
   align-items: center;
   background: rgba(0, 0, 0, 0.1);
+  a {
+    text-decoration: none;
+  }
   .logo {
     padding: 0 10px;
   }
   .menu {
-    display: flex;
+    @include flex;
     flex-direction: row;
     margin-left: auto;
     li {
       //padding: 20px;
     }
     a {
-      padding: 20px;
-      text-decoration: none;
+      padding: 1rem;
+
       display: block;
+      &:hover {
+        text-decoration: underline;
+      }
     }
+  }
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.main {
+  max-width: 1000px;
+  width: 100%;
+  padding: 1.5rem;
+  .heading {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+}
+
+.sidebar {
+  padding: 2rem 1.75rem 2rem 0;
+}
+
+.map {
+  @include flex;
+  .group {
+    @include flex;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  .one {
+    max-width: 270px;
+    width: 100%;
   }
 }
