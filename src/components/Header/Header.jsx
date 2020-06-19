@@ -1,5 +1,6 @@
 import React from 'react';
 import { HeaderNavigation } from './HeaderNavigation';
+import { HeaderStats } from './HeaderStats';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -11,6 +12,7 @@ const Header = () => {
         </Link>
       </div>
       <HeaderNavigation />
+      <HeaderStats />
     </div>
   );
 };
