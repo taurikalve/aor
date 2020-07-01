@@ -5,11 +5,15 @@ import App from './App';
 //import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
 
+import CharProvider from './context/char/char.context';
+
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <CharProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </CharProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

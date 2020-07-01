@@ -1,7 +1,11 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { CharContext } from '../../context/char/char.context';
 
 export const HeaderStats = () => {
-  const { user } = useContext(UserContext);
-  return <div className='stats'>{user.gold} G</div>;
+  const { gold, health, maxHealth } = useContext(CharContext);
+  return (
+    <div className='stats'>
+      HP {health}/{maxHealth} | {gold} G
+    </div>
+  );
 };

@@ -1,21 +1,20 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../../context/UserContext';
+import { CharContext } from '../../context/char/char.context';
 
 const Welcome = () => {
-  const CHARACTER = {
-    name: 'Billybob',
-    gold: 100
-  };
-  const { user, setUser } = useContext(UserContext);
-
+  const { name, gold, addGold, removeGold, modGold } = useContext(CharContext);
   return (
     <div>
-      <h3>Welcome, {user.name}</h3>
-      <p>You have {user.gold} gold</p>
+      <h3>Welcome, {name}</h3>
+      <p>You have {gold} gold</p>
       <p>
         Tips, tutorials, patch notes, character info etc - <b>TBD</b>
       </p>
-      <button onClick={() => setUser(CHARACTER)}>Set char</button>
+      <br />
+      <button onClick={() => modGold(10)}>Add 10 gold</button>
+      <br />
+      <button onClick={() => modGold(-10)}>Remove 10 gold</button>
+      <br />
     </div>
   );
 };
