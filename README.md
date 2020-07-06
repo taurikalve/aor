@@ -1,5 +1,3 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
 ## Age of Rulers
 
 Fantasy browser game made with `create-react-app`.
