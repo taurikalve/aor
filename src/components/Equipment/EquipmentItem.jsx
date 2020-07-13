@@ -1,9 +1,19 @@
 import React, { useContext } from 'react';
 import { CharContext } from '../../context/char/char.context';
+import { equipStatTypes } from '../../statTypes';
 
 const EquipmentItem = ({ equippedItem }) => {
-  const { unequipItemToInv } = useContext(CharContext);
   const { name, type } = equippedItem;
+  const { unequipItem, modStat } = useContext(CharContext);
+
+  const unequip = (itemToUnequip) => {
+    unequipItem(itemToUnequip);
+    equipStatTypes.map((stat) => {
+      //return console.log()
+      return modStat([stat], -1 * itemToUnequip[stat]);
+    });
+  };
+
   return (
     <div>
       {type.toUpperCase() + ' : '}
@@ -11,7 +21,7 @@ const EquipmentItem = ({ equippedItem }) => {
       {name.length ? (
         <button
           onClick={() => {
-            unequipItemToInv(equippedItem);
+            unequip(equippedItem);
           }}
         >
           X

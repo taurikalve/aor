@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react';
 
 import {
   modCharStat,
+  modCharStat2,
   equipItemChar,
   addItemToCharInv,
   removeItemFromCharInv,
@@ -16,34 +17,38 @@ const CharProvider = ({ children }) => {
     character = {
       name: 'Mr. T',
       gold: 777,
-      health: 100,
-      maxHealth: 110,
-      mana: 50,
-      maxMana: 75,
-      armor: 0,
-      magicResistance: 0,
-      attack: 0,
-      magic: 0,
-      ranged: 0,
+      stats: {
+        health: 100,
+        maxHealth: 100,
+        mana: 50,
+        maxMana: 75,
+        armor: 0,
+        magicResistance: 0,
+        attack: 0,
+        magic: 0,
+        ranged: 0
+      },
       equipment: [
-        { name: 'linen underwear', type: 'legs', id: 'placeholderLegs' },
-        { name: 'straw hat', type: 'head', id: 'placeholderHead' },
-        { name: 'dirty shirt', type: 'chest', id: 'placeholderChest' },
-        { name: '', type: 'hands', id: 'hands' }
+        {
+          name: 'linen underwear',
+          type: 'legs',
+          id: 'placeholderLegs',
+          armor: 0
+        },
+        { name: 'straw hat', type: 'head', id: 'placeholderHead', armor: 0 },
+        {
+          name: 'dirty shirt',
+          type: 'chest',
+          id: 'placeholderChest',
+          armor: 0
+        },
+        { name: '', type: 'hands', id: 'hands', armor: 0 }
       ],
       inventory: [],
       modGold: () => {},
-      modHealth: () => {},
-      modMaxHealth: () => {},
-      modMana: () => {},
-      modMaxMana: () => {},
-      modArmor: () => {},
-      modMagicResistance: () => {},
-      modAttack: () => {},
-      modMagic: () => {},
-      modRanged: () => {},
+      modStat: () => {},
       equipItem: () => {},
-      unequipItemToInv: () => {},
+      unequipItem: () => {},
       addItemToInv: () => {},
       removeItemFromInv: () => {}
     };
@@ -51,32 +56,13 @@ const CharProvider = ({ children }) => {
 
   const [name /*, setName*/] = useState(character.name);
   const [gold, setGold] = useState(character.gold);
-  const [health, setHealth] = useState(character.health);
-  const [maxHealth, setMaxHealth] = useState(character.maxHealth);
-  const [mana, setMana] = useState(character.mana);
-  const [maxMana, setMaxMana] = useState(character.maxMana);
-  const [armor, setArmor] = useState(character.armor);
-  const [magicResistance, setMagicResistance] = useState(
-    character.magicResistance
-  );
-  const [attack, setAttack] = useState(character.attack);
-  const [magic, setMagic] = useState(character.magic);
-  const [ranged, setRanged] = useState(character.ranged);
+  const [stats, setStats] = useState(character.stats);
 
   const [equipment, setEquipment] = useState(character.equipment);
   const [inventory, setInventory] = useState(character.inventory);
 
   const modGold = (amount) => setGold(modCharStat(gold, amount));
-  const modHealth = (amount) => setHealth(modCharStat(health, amount));
-  const modMaxHealth = (amount) => setMaxHealth(modCharStat(maxHealth, amount));
-  const modMana = (amount) => setMana(modCharStat(mana, amount));
-  const modMaxMana = (amount) => setMaxMana(modCharStat(maxMana, amount));
-  const modArmor = (amount) => setArmor(modCharStat(armor, amount));
-  const modMagicResistance = (amount) =>
-    setMagicResistance(modCharStat(magicResistance, amount));
-  const modAttack = (amount) => setAttack(modCharStat(attack, amount));
-  const modMagic = (amount) => setMagic(modCharStat(magic, amount));
-  const modRanged = (amount) => setRanged(modCharStat(ranged, amount));
+  const modStat = (stat, amount) => setStats(modCharStat2(stats, stat, amount));
 
   const addItemToInv = (itemToAdd) => {
     setInventory(addItemToCharInv(inventory, itemToAdd));
@@ -86,7 +72,7 @@ const CharProvider = ({ children }) => {
     setInventory(removeItemFromCharInv(inventory, itemToRemove));
   };
 
-  const unequipItemToInv = (itemToUnequip) => {
+  const unequipItem = (itemToUnequip) => {
     setEquipment(unequipItemChar(equipment, itemToUnequip));
     setInventory(addItemToCharInv(inventory, itemToUnequip));
   };
@@ -97,63 +83,57 @@ const CharProvider = ({ children }) => {
     setInventory(res.inventory);
   };
 
+  /*const equipmentStatMod = (equipment) => {
+    equipment.forEach((equippedItem) => {
+      if (equippedItem.modMaxHealth) {
+        modMaxHealth(equippedItem.maxHealth);
+      }
+      if (equippedItem.maxMana) {
+        modMaxMana(equippedItem.maxMana);
+      }
+      if (equippedItem.armor) {
+        modArmor(equippedItem.armor);
+      }
+      if (equippedItem.magicResistance) {
+        modMagicResistance(equippedItem.magicResistance);
+      }
+      if (equippedItem.magic) {
+        modMagic(equippedItem.magic);
+      }
+      if (equippedItem.attack) {
+        modAttack(equippedItem.attack);
+      }
+      if (equippedItem.ranged) {
+        modRanged(equippedItem.ranged);
+      }
+    });
+  };*/
+
   useEffect(() => {
     localStorage.setItem(
       'char',
       JSON.stringify({
         name,
         gold,
-        health,
-        maxHealth,
-        armor,
-        magicResistance,
-        attack,
-        magic,
-        ranged,
+        stats,
         equipment,
         inventory
       })
     );
-  }, [
-    name,
-    gold,
-    health,
-    maxHealth,
-    armor,
-    magicResistance,
-    attack,
-    magic,
-    ranged,
-    equipment,
-    inventory
-  ]);
+  }, [name, gold, stats, equipment, inventory]);
 
   return (
     <CharContext.Provider
       value={{
         name,
         gold,
-        health,
-        maxHealth,
-        armor,
-        magicResistance,
-        attack,
-        magic,
-        ranged,
+        stats,
         equipment,
         inventory,
         modGold,
-        modHealth,
-        modMaxHealth,
-        modMana,
-        modMaxMana,
-        modArmor,
-        modMagicResistance,
-        modAttack,
-        modMagic,
-        modRanged,
+        modStat,
         equipItem,
-        unequipItemToInv,
+        unequipItem,
         addItemToInv,
         removeItemFromInv
       }}

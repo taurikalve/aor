@@ -7,11 +7,9 @@ const Welcome = () => {
   const {
     name,
     gold,
-    armor,
-    magicResistance,
+    stats: { armor, magicResistance },
     modGold,
-    modHealth,
-    modMaxHealth
+    modStat
   } = useContext(CharContext);
   return (
     <div>
@@ -28,8 +26,10 @@ const Welcome = () => {
       <button onClick={() => modGold(-10)}>Remove 10 gold</button>
       <br />
       <br />
-      <button onClick={() => modHealth(-10)}>Take 10 damage</button>
-      <button onClick={() => modMaxHealth(10)}>Add 10 max health</button>
+      <button onClick={() => modStat('health', -10)}>Take 10 damage</button>
+      <button onClick={() => modStat('maxHealth', 10)}>
+        Add 10 max health
+      </button>
       <br />
       <br />
       <Equipment />

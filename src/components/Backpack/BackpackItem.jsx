@@ -2,17 +2,16 @@ import React, { useContext } from 'react';
 
 import { CharContext } from '../../context/char/char.context';
 
+import { equipStatTypes } from '../../statTypes';
+
 const BackpackItem = ({ item }) => {
   const { name, type } = item;
   const {
+    equipment,
+    //stats: { armor },
     equipItem,
-    //equipment,
-    /*modArmor,
-    modMagicResistance,
-    modMagic,
-    modAttack,
-    modRanged,*/
-    removeItemFromInv
+    removeItemFromInv,
+    modStat
   } = useContext(CharContext);
 
   const isEquippable = (type) => {
@@ -26,12 +25,34 @@ const BackpackItem = ({ item }) => {
     }
   };
 
+  //WIP - programmatic stat modification
+  // statTypes.map((statType) => console.log(statType));
+
   const equip = (itemToEquip) => {
+    const currentItem = equipment.find(
+      (equippedItem) => equippedItem.type === itemToEquip.type
+    );
+
+    equipStatTypes.map((statType) => {
+      console.log(statType);
+      console.log(itemToEquip[statType] - currentItem[statType]);
+      return modStat([statType], itemToEquip[statType] - currentItem[statType]);
+    });
+    //modStat('armor', itemToEquip.armor - currentItem.armor);
+
     equipItem(itemToEquip);
 
-    // if (itemToEquip.armor) {
-    //   modArmor(itemToEquip.armor);
+    // if (itemToEquip.modMaxHealth) {
+    //   modMaxHealth(itemToEquip.maxHealth);
     // }
+    // if (itemToEquip.maxMana) {
+    //   modMaxMana(itemToEquip.maxMana);
+    // }
+
+    //if (itemToEquip.armor) {
+
+    //}
+
     // if (itemToEquip.magicResistance) {
     //   modMagicResistance(itemToEquip.magicResistance);
     // }

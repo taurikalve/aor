@@ -1,17 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import { equipStatTypes } from '../../statTypes';
-
-export const modCharStat = (stat, amount) => {
-  return stat + amount;
-};
-
-export const modCharStat2 = (stats, stat, amount) => {
-  stats[stat] += amount;
-  return { ...stats };
-  // const save = stats[stat];
-  // delete stats.stat;
-  // return { ...stats, ...{ [stat]: save + amount } };
-};
 
 export const addItemToCharInv = (inventory, itemToAdd) => {
   itemToAdd = { ...itemToAdd, ...{ id: uuidv4() } };
@@ -23,9 +10,6 @@ export const removeItemFromCharInv = (inventory, itemToRemove) => {
 };
 
 export const equipItemChar = (inventory, equipment, itemToEquip) => {
-  // if (!itemToEquip.armor) {
-  //   itemToEquip = { ...itemToEquip, ...{ armor: 0 } };
-  // }
   const currentItemInSlot = equipment.find(
     (equippedItem) => equippedItem.type === itemToEquip.type
   );
@@ -43,30 +27,9 @@ export const unequipItemChar = (equippedItems, itemToUnequip) => {
   const updatedEquippedItems = equippedItems.filter(
     (equippedItem) => equippedItem.name !== itemToUnequip.name
   );
-  let pFiller = {};
-  equipStatTypes.map((stat) => {
-    return (pFiller = { ...pFiller, [stat]: 0 });
-  });
+
   return [
     ...updatedEquippedItems,
-    {
-      name: '',
-      type: itemToUnequip.type,
-      id: itemToUnequip.type,
-      ...pFiller
-    }
+    { name: '', type: itemToUnequip.type, id: itemToUnequip.type }
   ];
-  // return {
-  //   ...{
-  //     inventory: [
-  //       ...updatedEquippedItems,
-  //       {
-  //         name: '',
-  //         type: itemToUnequip.type,
-  //         id: itemToUnequip.type,
-  //         ...pFiller
-  //       }
-  //     ]
-  //   }
-  // };
 };
