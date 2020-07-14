@@ -1,4 +1,4 @@
-import { equipStatTypes } from '../../statTypes';
+import { equipStatTypes } from '../../types/statTypes';
 
 let STARTING_ITEMS = [
   {

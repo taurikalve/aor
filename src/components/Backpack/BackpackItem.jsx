@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 
 import { CharContext } from '../../context/char/char.context';
 
-import { equipStatTypes } from '../../statTypes';
+import { equipStatTypes, consumeStatTypes } from '../../types/statTypes';
 
 const BackpackItem = ({ item }) => {
   const { name, type } = item;
   const {
     equipment,
-    //stats: { armor },
+    stats: { health, maxHealth, mana, maxMana },
     equipItem,
     removeItemFromInv,
     modStat
@@ -24,9 +24,11 @@ const BackpackItem = ({ item }) => {
       return true;
     }
   };
-
-  //WIP - programmatic stat modification
-  // statTypes.map((statType) => console.log(statType));
+  const isConsumeable = (type) => {
+    if (type === 'consumable') {
+      return true;
+    }
+  };
 
   const equip = (itemToEquip) => {
     const currentItem = equipment.find(
@@ -34,37 +36,34 @@ const BackpackItem = ({ item }) => {
     );
 
     equipStatTypes.map((statType) => {
-      console.log(statType);
-      console.log(itemToEquip[statType] - currentItem[statType]);
+      //console.log(statType);
+      //console.log(itemToEquip[statType] - currentItem[statType]);
       return modStat([statType], itemToEquip[statType] - currentItem[statType]);
     });
-    //modStat('armor', itemToEquip.armor - currentItem.armor);
 
     equipItem(itemToEquip);
+  };
 
-    // if (itemToEquip.modMaxHealth) {
-    //   modMaxHealth(itemToEquip.maxHealth);
-    // }
-    // if (itemToEquip.maxMana) {
-    //   modMaxMana(itemToEquip.maxMana);
-    // }
+  const use = (itemToUse) => {
+    removeItemFromInv(itemToUse);
 
-    //if (itemToEquip.armor) {
-
-    //}
-
-    // if (itemToEquip.magicResistance) {
-    //   modMagicResistance(itemToEquip.magicResistance);
-    // }
-    // if (itemToEquip.magic) {
-    //   modMagic(itemToEquip.magic);
-    // }
-    // if (itemToEquip.attack) {
-    //   modAttack(itemToEquip.attack);
-    // }
-    // if (itemToEquip.ranged) {
-    //   modRanged(itemToEquip.ranged);
-    // }
+    return consumeStatTypes.map((stat) => {
+      if (stat === 'health') {
+        console.log(stat);
+        const healthGap = maxHealth - health;
+        if (healthGap < itemToUse.health) {
+          return modStat('health', healthGap);
+        }
+        return modStat('health', itemToUse.health);
+      }
+      if (stat === 'mana') {
+        const manaGap = maxMana - mana;
+        if (manaGap < itemToUse.mana) {
+          return modStat('mana', manaGap);
+        }
+        return modStat('mana', itemToUse.mana);
+      }
+    });
   };
 
   return (
@@ -85,6 +84,17 @@ const BackpackItem = ({ item }) => {
           }}
         >
           Equip
+        </button>
+      ) : (
+        ''
+      )}
+      {isConsumeable(type) ? (
+        <button
+          onClick={() => {
+            use(item);
+          }}
+        >
+          Use
         </button>
       ) : (
         ''

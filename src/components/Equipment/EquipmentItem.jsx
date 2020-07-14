@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CharContext } from '../../context/char/char.context';
-import { equipStatTypes } from '../../statTypes';
+import { equipStatTypes } from '../../types/statTypes';
 
 const EquipmentItem = ({ equippedItem }) => {
   const { name, type } = equippedItem;
@@ -9,7 +9,6 @@ const EquipmentItem = ({ equippedItem }) => {
   const unequip = (itemToUnequip) => {
     unequipItem(itemToUnequip);
     equipStatTypes.map((stat) => {
-      //return console.log()
       return modStat([stat], -1 * itemToUnequip[stat]);
     });
   };

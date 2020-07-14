@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import './App.scss';
 
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import Backpack from './components/Backpack/Backpack';
 
 import Workshop from './pages/Workshop/Workshop';
@@ -28,6 +29,7 @@ function App() {
           <Backpack />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

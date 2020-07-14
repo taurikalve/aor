@@ -74,6 +74,14 @@ body {
   overflow-y: auto;
 }
 
+.footer {
+  @include flex;
+  @include f-center;
+  .stats {
+    padding: 1rem;
+  }
+}
+
 .map {
   @include flex;
   .group {

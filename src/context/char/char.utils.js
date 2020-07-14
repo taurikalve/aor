@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { equipStatTypes } from '../../statTypes';
+import { equipStatTypes } from '../../types/statTypes';
 
 export const modCharStat = (stat, amount) => {
   return stat + amount;
@@ -70,3 +70,7 @@ export const unequipItemChar = (equippedItems, itemToUnequip) => {
   //   }
   // };
 };
+
+// export const useItemChar = (inventory, itemToUse) => {
+//   inventory.filter((item) => item.id !== itemToUse.id);
+// }
