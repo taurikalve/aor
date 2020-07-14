@@ -9,6 +9,8 @@ import {
   unequipItemChar
 } from './char.utils';
 
+import STARTING_ITEMS from './startingItems';
+
 export const CharContext = createContext();
 
 const CharProvider = ({ children }) => {
@@ -28,22 +30,7 @@ const CharProvider = ({ children }) => {
         magic: 0,
         ranged: 0
       },
-      equipment: [
-        {
-          name: 'linen underwear',
-          type: 'legs',
-          id: 'placeholderLegs',
-          armor: 0
-        },
-        { name: 'straw hat', type: 'head', id: 'placeholderHead', armor: 0 },
-        {
-          name: 'dirty shirt',
-          type: 'chest',
-          id: 'placeholderChest',
-          armor: 0
-        },
-        { name: '', type: 'hands', id: 'hands', armor: 0 }
-      ],
+      equipment: STARTING_ITEMS,
       inventory: [],
       modGold: () => {},
       modStat: () => {},
